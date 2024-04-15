@@ -26,13 +26,13 @@ class DevMenuExtension(reactContext: ReactApplicationContext) :
     }
 
     val manager = DevMenuManager
-    val reactInstanceManager = manager.getReactInstanceManager()
-    if (reactInstanceManager == null) {
-      Log.w(DEV_MENU_TAG, "Couldn't export dev-menu items, because the react instance manager isn't present.")
+    val reactHost = manager.getReactHost()
+    if (reactHost == null) {
+      Log.w(DEV_MENU_TAG, "Couldn't export dev-menu items, because the react instance isn't present.")
       return@export
     }
 
-    val devDelegate = DevMenuDevToolsDelegate(settings.manager, reactInstanceManager)
+    val devDelegate = DevMenuDevToolsDelegate(settings.manager, reactHost)
     val reactDevManager = devDelegate.reactDevManager
     val devSettings = devDelegate.devSettings
 

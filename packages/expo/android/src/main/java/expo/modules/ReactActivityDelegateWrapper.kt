@@ -90,6 +90,11 @@ class ReactActivityDelegateWrapper(
       val reactDelegate = mReactDelegate[delegate] as ReactDelegate
 
       reactDelegate.loadApp(appKey)
+      val reactRootView = reactDelegate.reactRootView
+      val reactRootViewParent = reactRootView.parent
+      if (reactRootViewParent is ViewGroup) {
+        reactRootViewParent.removeView(reactRootView)
+      }
       rootViewContainer.addView(reactDelegate.reactRootView, ViewGroup.LayoutParams.MATCH_PARENT)
       activity.setContentView(rootViewContainer)
       reactActivityLifecycleListeners.forEach { listener ->
